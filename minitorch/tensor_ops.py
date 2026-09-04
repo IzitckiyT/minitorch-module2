@@ -222,7 +222,35 @@ class SimpleOps(TensorOps):
 
     @staticmethod
     def matrix_multiply(a: "Tensor", b: "Tensor") -> "Tensor":
-        raise NotImplementedError("Not implemented in this assignment")
+        shape = shape_broadcast(a.shape[:-2], b.shape[:-2])
+        out_shape = shape + (a.shape[-2], b.shape[-1])
+        out = a.zeros(out_shape)
+        a_storage, _, a_strides = a.tuple()
+        b_storage, _, b_strides = b.tuple()
+        out_storage, _, out_strides = out.tuple()
+        out_index = np.zeros(len(out_shape), dtype=np.int32)
+        a_index = np.zeros(a.dims, dtype=np.int32)
+        b_index = np.zeros(b.dims, dtype=np.int32)
+        out_shape = np.array(out_shape, dtype=np.int32)
+        shape = np.array(shape, dtype=np.int32)
+        a_shape = np.array(a.shape[:-2], dtype=np.int32)
+        b_shape = np.array(b.shape[:-2], dtype=np.int32)
+
+        for ordinal in range(len(out_storage)):
+            to_index(ordinal, out_shape, out_index)
+            if a.dims > 2:
+                broadcast_index(out_index[:-2], shape, a_shape, a_index[:-2])
+            if b.dims > 2:
+                broadcast_index(out_index[:-2], shape, b_shape, b_index[:-2])
+            value = 0.0
+            for k in range(a.shape[-1]):
+                a_index[-2], a_index[-1] = out_index[-2], k
+                b_index[-2], b_index[-1] = k, out_index[-1]
+                value += a_storage[index_to_position(a_index, a_strides)] * b_storage[index_to_position(b_index, b_strides)]
+            out_storage[index_to_position(out_index, out_strides)] = value
+
+        return out
+        
 
     is_cuda = False
 
@@ -268,8 +296,14 @@ def tensor_map(fn: Callable[[float], float]) -> Any:
         in_shape: Shape,
         in_strides: Strides,
     ) -> None:
-        # TODO: Implement for Task 2.3.
-        raise NotImplementedError("Need to implement for Task 2.3")
+        out_index = np.zeros(len(out_shape), dtype=np.int32)
+        in_index = np.zeros(len(in_shape), dtype=np.int32)
+        for ordinal in range(len(out)):
+            to_index(ordinal, out_shape, out_index)
+            broadcast_index(out_index, out_shape, in_shape, in_index)
+            in_position = index_to_position(in_index, in_strides)
+            out_position = index_to_position(out_index, out_strides)
+            out[out_position] = fn(in_storage[in_position])
 
     return _map
 
@@ -318,8 +352,17 @@ def tensor_zip(fn: Callable[[float, float], float]) -> Any:
         b_shape: Shape,
         b_strides: Strides,
     ) -> None:
-        # TODO: Implement for Task 2.3.
-        raise NotImplementedError("Need to implement for Task 2.3")
+        out_index = np.zeros(len(out_shape), dtype=np.int32)
+        a_index = np.zeros(len(a_shape), dtype=np.int32)
+        b_index = np.zeros(len(b_shape), dtype=np.int32)
+        for ordinal in range(len(out)):
+            to_index(ordinal, out_shape, out_index)
+            broadcast_index(out_index, out_shape, a_shape, a_index)
+            broadcast_index(out_index, out_shape, b_shape, b_index)
+            a_position = index_to_position(a_index, a_strides)
+            b_position = index_to_position(b_index, b_strides)
+            out_position = index_to_position(out_index, out_strides)
+            out[out_position] = fn(a_storage[a_position], b_storage[b_position])
 
     return _zip
 
@@ -354,8 +397,20 @@ def tensor_reduce(fn: Callable[[float, float], float]) -> Any:
         a_strides: Strides,
         reduce_dim: int,
     ) -> None:
-        # TODO: Implement for Task 2.3.
-        raise NotImplementedError("Need to implement for Task 2.3")
+        out_index = np.zeros(len(out_shape), dtype=np.int32)
+        a_index = np.zeros(len(a_shape), dtype=np.int32)
+        for ordinal in range(len(out)):
+            to_index(ordinal, out_shape, out_index)
+            for dim in range(len(a_shape)):
+                a_index[dim] = out_index[dim]
+            a_index[reduce_dim] = 0
+            result = a_storage[index_to_position(a_index, a_strides)]
+            for i in range(1, a_shape[reduce_dim]):
+                a_index[reduce_dim] = i
+                pos = index_to_position(a_index, a_strides)
+                result = fn(result, a_storage[pos])
+            out_pos = index_to_position(out_index, out_strides)
+            out[out_pos] = result
 
     return _reduce
 

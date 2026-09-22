@@ -1,0 +1,67 @@
+
+  You can now view your Streamlit app in your browser.
+
+  Local URL: http://localhost:8501
+  Network URL: http://10.8.1.1:8501
+
+2026-09-22 23:10:02.019 Examining the path of torch.classes raised: Tried to instantiate class '__path__._path', but it does not exist! Ensure that it is registered via torch::class_
+2026-09-22 23:10:02.159 Examining the path of torch.classes raised: Tried to instantiate class '__path__._path', but it does not exist! Ensure that it is registered via torch::class_
+2026-09-22 23:10:02.183 Examining the path of torch.classes raised: Tried to instantiate class '__path__._path', but it does not exist! Ensure that it is registered via torch::class_
+2026-09-22 23:10:11.076 Examining the path of torch.classes raised: Tried to instantiate class '__path__._path', but it does not exist! Ensure that it is registered via torch::class_
+Epoch: 0/500, loss: 0, correct: 0
+2026-09-22 23:10:12.731 Examining the path of torch.classes raised: Tried to instantiate class '__path__._path', but it does not exist! Ensure that it is registered via torch::class_
+Epoch: 0/500, loss: 0, correct: 0
+Epoch: 0/500, loss: 0, correct: 0
+Epoch: 0/500, loss: 0, correct: 0
+Epoch: 10/100, loss: 33.30722229485857, correct: 30
+Epoch: 20/100, loss: 31.257890942074074, correct: 33
+Epoch: 30/100, loss: 29.488185538585153, correct: 36
+Epoch: 40/100, loss: 27.772492725400742, correct: 36
+Epoch: 50/100, loss: 26.144950523891307, correct: 37
+Epoch: 60/100, loss: 24.6560035889457, correct: 39
+Epoch: 70/100, loss: 23.188529096469328, correct: 41
+Epoch: 80/100, loss: 21.75290451996187, correct: 41
+Epoch: 90/100, loss: 20.374703328266335, correct: 41
+Epoch: 100/100, loss: 19.065061632080724, correct: 44
+Epoch: 0/100, loss: 0, correct: 0
+Epoch: 10/100, loss: 35.97734029706239, correct: 23
+Epoch: 20/100, loss: 34.05891545385167, correct: 31
+Epoch: 30/100, loss: 33.14875506612076, correct: 28
+Epoch: 40/100, loss: 32.519588340690625, correct: 33
+Epoch: 50/100, loss: 32.07467586988455, correct: 34
+Epoch: 60/100, loss: 31.690165415487783, correct: 35
+Epoch: 70/100, loss: 31.318817335967445, correct: 37
+Epoch: 80/100, loss: 30.958833349429653, correct: 37
+Epoch: 90/100, loss: 30.597951994131144, correct: 38
+Epoch: 100/100, loss: 30.25135584007768, correct: 38
+Epoch: 0/100, loss: 0, correct: 0
+Epoch: 10/100, loss: 34.9268510933487, correct: 26
+Epoch: 20/100, loss: 34.23681839043329, correct: 28
+Epoch: 30/100, loss: 34.167462230706235, correct: 28
+Epoch: 40/100, loss: 34.12731396478287, correct: 28
+Epoch: 50/100, loss: 34.09242837056298, correct: 28
+Epoch: 60/100, loss: 34.061932584204584, correct: 28
+Epoch: 70/100, loss: 34.03458752370617, correct: 28
+Epoch: 80/100, loss: 34.0092932708693, correct: 28
+Epoch: 90/100, loss: 33.9911188039711, correct: 28
+Epoch: 100/100, loss: 33.97493106761341, correct: 28
+2026-09-22 23:12:01.472 Examining the path of torch.classes raised: Tried to instantiate class '__path__._path', but it does not exist! Ensure that it is registered via torch::class_
+Epoch: 0/500, loss: 0, correct: 0
+Epoch: 0/500, loss: 0, correct: 0
+Epoch: 0/500, loss: 0, correct: 0
+Epoch: 0/500, loss: 0, correct: 0
+Epoch: 10/150, loss: 86.18919212510492, correct: 99
+Epoch: 20/150, loss: 82.71895930227632, correct: 101
+Epoch: 30/150, loss: 80.21976988824214, correct: 104
+Epoch: 40/150, loss: 78.06094133821249, correct: 103
+Epoch: 50/150, loss: 76.22801661135694, correct: 105
+Epoch: 60/150, loss: 74.57546482132197, correct: 108
+Epoch: 70/150, loss: 73.05054977476264, correct: 110
+Epoch: 80/150, loss: 71.9301723892233, correct: 112
+Epoch: 90/150, loss: 70.92212031138497, correct: 112
+Epoch: 100/150, loss: 69.94518708429072, correct: 114
+Epoch: 110/150, loss: 68.96968994835693, correct: 114
+Epoch: 120/150, loss: 68.01297137220864, correct: 115
+Epoch: 130/150, loss: 67.07010712233127, correct: 117
+Epoch: 140/150, loss: 66.14042885886563, correct: 119
+Epoch: 150/150, loss: 65.2209588876169, correct: 121

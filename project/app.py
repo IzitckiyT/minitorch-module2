@@ -1,4 +1,5 @@
 from argparse import ArgumentParser
+from pathlib import Path
 
 import streamlit as st
 from interface.streamlit_utils import get_img_tag
@@ -7,7 +8,7 @@ from math_interface import render_math_sandbox
 from run_torch import TorchTrain
 
 parser = ArgumentParser()
-parser.add_argument("module_num", type=int)
+parser.add_argument("module_num", type=int, choices=range(5))
 parser.add_argument(
     "--hide_function_defs", action="store_true", dest="hide_function_defs"
 )
@@ -31,10 +32,32 @@ st.sidebar.markdown(
 """
 )
 
+project_dir = Path(__file__).resolve().parent
+module_files = [
+    "run_manual.py",
+    "run_scalar.py",
+    "run_tensor.py",
+    "run_fast_tensor.py",
+    "run_mnist_interface.py",
+]
+available_modules = [
+    f"Module {i}"
+    for i, filename in enumerate(module_files[: module_num + 1])
+    if (project_dir / filename).is_file()
+]
+
+if not available_modules:
+    st.error("В этой папке нет кода для выбранных модулей.")
+    st.stop()
+
+if f"Module {module_num}" not in available_modules:
+    st.warning(
+        f"В этой папке нет кода Module {module_num}. "
+        f"Для него запусти приложение из minitorch-module{module_num}."
+    )
+
 module_selection = st.sidebar.radio(
-    "Module",
-    ["Module 0", "Module 1", "Module 2", "Module 3", "Module 4"][: module_num + 1],
-    index=module_num,
+    "Module", available_modules, index=len(available_modules) - 1
 )
 
 
